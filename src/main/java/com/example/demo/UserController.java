@@ -1,0 +1,13 @@
+package com.example.demo;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class UserController {
+
+    @GetMapping("/users")   //GET is HTTP GET method.
+    public String getAllUser(){
+        return "Get All User, Hello world !";
+    }
+}
