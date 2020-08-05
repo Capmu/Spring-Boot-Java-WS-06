@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -7,6 +8,9 @@ import java.util.List;
 
 @RestController
 public class UserController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     // @GetMapping("/users")   //GET is HTTP GET method.
     /*
@@ -48,6 +52,14 @@ public class UserController {
 
     @PostMapping("/users")
     public UsersResponse createNewUser(@RequestBody NewUserRequest request){
-        return new UsersResponse(0, request.getName() + request.getAge());
+        //Validate input
+        //Create new user into database => Repository (Responsibility)
+        User user = new User();
+        user.setName(request.getName());
+        user.setAge(request.getAge());
+        user = userRepository.save(user);
+        //return new UsersResponse(0, request.getName() + request.getAge());
+        return new UsersResponse(user.getId(), user.getName() + user.getAge());
     }
+
 }
