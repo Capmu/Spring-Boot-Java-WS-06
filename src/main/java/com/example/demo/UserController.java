@@ -1,8 +1,6 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,13 @@ public class UserController {
      */
 
     @GetMapping("/users")   //GET is HTTP GET method.
-    public List<UsersResponse> getAllUser(){
+    @ResponseBody
+    public List<UsersResponse> getAllUser(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int item_per_page){
+
+        //monitoring
+        System.out.println("page value: " + page);
+        System.out.println("item_per_page value: " + item_per_page);
+
         List<UsersResponse> usersResponsesList = new ArrayList<>();
         usersResponsesList.add(new UsersResponse(1, "User 1"));
         usersResponsesList.add(new UsersResponse(2, "User 2"));
